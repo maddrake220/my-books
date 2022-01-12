@@ -8,6 +8,7 @@ import Error from "./pages/Error";
 import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
 import Signin from "./pages/Signin";
+
 function App() {
   return (
     <ErrorBoundary FallbackComponent={Error}>
