@@ -1,9 +1,11 @@
 import { Col, Row, Input, Button } from "antd";
-import { useRef } from "react";
+import { FC, useRef } from "react";
+import { LoginReqType } from "../types";
 import styles from "./Signin.module.css";
-export default function Signin() {
-  // <Input>의 초기값으로 지정을 안해서 type error
-  // -> null을 초기값으로 해주면 error 해결
+interface SigninProps {
+  login: (reqData: LoginReqType) => void;
+}
+const Signin: FC<SigninProps> = ({ login }) => {
   const emailRef = useRef<Input>(null);
   const passwordRef = useRef<Input>(null);
   return (
@@ -11,11 +13,11 @@ export default function Signin() {
       <Col span={24}>
         <Row className={styles.signin_contents}>
           <Col span={12}>
-            <img
+            {/* <img
               src="images/bg_signin.png"
               className={styles.signin_bg}
               alt="signin"
-            />
+            /> */}
           </Col>
           <Col span={12}>
             <div className={styles.signin_title}>My Books</div>
@@ -49,7 +51,7 @@ export default function Signin() {
               ></Input>
             </div>
             <div className={styles.button_area}>
-              <Button size="large" className={styles.button}>
+              <Button size="large" className={styles.button} onClick={click}>
                 Sign In
               </Button>
             </div>
@@ -58,4 +60,11 @@ export default function Signin() {
       </Col>
     </Row>
   );
-}
+  function click() {
+    const email = emailRef.current!.state.value;
+    const password = passwordRef.current!.state.value;
+    login({ email, password });
+  }
+};
+
+export default Signin;
