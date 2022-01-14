@@ -7,14 +7,29 @@ import Layout from "./Layout";
 interface ListProps {
   books: BookType[] | null;
   loading: boolean;
+  error: Error | null;
   getBooks: () => void;
+  logout: () => void;
+  goAdd: () => void;
 }
-const List: React.FC<ListProps> = ({ books, loading, getBooks }) => {
+const List: React.FC<ListProps> = ({
+  books,
+  loading,
+  getBooks,
+  error,
+  logout,
+  goAdd,
+}) => {
   useEffect(() => {
     getBooks();
   }, [getBooks]);
-  const goAdd = () => {};
-  const logout = () => {};
+
+  useEffect(() => {
+    if (error) {
+      logout();
+    }
+    return () => {};
+  }, [error, logout]);
   return (
     <Layout>
       <PageHeader
